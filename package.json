@@ -1,7 +1,7 @@
 {
-  "name": "__BONES_NEEDS_A_NAME__",
+  "name": "stackathon",
   "version": "0.0.1",
-  "description": "A happy little skeleton.",
+  "description": "A competitive flashcard game.",
   "main": "index.js",
   "scripts": {
     "test": "check-node-version --node '>= 6.7.0' && bin/setup && mocha --compilers js:babel-register app/**/*.test.js app/**/*.test.jsx db/**/*.test.js server/**/*.test.js",
@@ -20,7 +20,7 @@
     "redux",
     "skeleton"
   ],
-  "author": "Ashi Krishnan <me@ashi.works>",
+  "author": "Andrew Gionfriddo",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/queerviolet/bones/issues"
@@ -54,7 +54,8 @@
     "redux-thunk": "^2.1.0",
     "sequelize": "^3.24.6",
     "sinon": "^1.17.6",
-    "sinon-chai": "^2.8.0"
+    "sinon-chai": "^2.8.0",
+    "socket.io": "^1.5.1"
   },
   "devDependencies": {
     "babel": "^6.5.2",

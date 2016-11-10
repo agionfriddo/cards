@@ -5,19 +5,34 @@ const bodyParser = require('body-parser')
 const {resolve} = require('path')
 const passport = require('passport')
 
-// Bones has a symlink from node_modules/APP to the root of the app.
-// That means that we can require paths relative to the app root by
-// saying require('APP/whatever').
-//
-// This next line requires our root index.js:
 const pkg = require('APP')
 
 const app = express()
 
 if (!pkg.isProduction && !pkg.isTesting) {
-  // Logging middleware (dev only)
   app.use(require('volleyball'))
 }
+
+const server = app.listen(3000, () => {
+  console.log('listening on port 3000');
+});
+
+var io = require('socket.io')(server);
+
+io.on('connection', (socket) => {
+  socket.emit('news', {hello: 'world'})
+  console.log('user connected');
+
+  socket.on('my other event', (data) => {
+    socket.broadcast.emit('post', {someone: 'entered'})
+  })
+
+  socket.on('disconnect', (socket) => {
+    console.log('user disconnected');
+    io.emit('user disconnected')
+  });
+});
+
 
 module.exports = app
   // We'll store the whole session in a cookie
@@ -30,10 +45,6 @@ module.exports = app
   .use(bodyParser.urlencoded({ extended: true }))
   .use(bodyParser.json())
 
-  // Authentication middleware
-  .use(passport.initialize())
-  .use(passport.session())
-  
   // Serve static files from ../public
   .use(express.static(resolve(__dirname, '..', 'public')))
 
@@ -42,16 +53,3 @@ module.exports = app
 
   // Send index.html for anything else.
   .get('/*', (_, res) => res.sendFile(resolve(__dirname, '..', 'public', 'index.html')))
-
-if (module === require.main) {
-  // Start listening only if we're the main module.
-  // 
-  // https://nodejs.org/api/modules.html#modules_accessing_the_main_module
-  const server = app.listen(
-    process.env.PORT || 1337,
-    () => {
-      console.log(`--- Started HTTP Server for ${pkg.name} ---`)      
-      console.log(`Listening on ${JSON.stringify(server.address())}`)
-    }
-  )
-}

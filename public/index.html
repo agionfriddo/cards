@@ -1,9 +1,30 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
+    <script src="socket.io/socket.io.js"></script>
+    <script>
+      var socket = io.connect('http://localhost:3000');
+      socket.on('news', function (data) {
+        console.log(data);
+        socket.on('news', () => console.log(data));
+        socket.emit('my other event', { my: 'data' });
+        socket.on('post', (data) => console.log(data))
+      });
+    </script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.light_blue-green.min.css">
+    <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+<link href="/ourstyle.css" rel="stylesheet" />
+<script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous" defer>
+</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" defer></script>
   </head>
   <body>
     <div id=main></div>
-    <script async defer src=/bundle.js></script>    
+    <script async defer src=/bundle.js></script>
   </body>
-</html> 
+</html>
