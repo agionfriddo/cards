@@ -4,8 +4,8 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const {resolve} = require('path')
 const passport = require('passport')
-
 const pkg = require('APP')
+const db = require('APP/db')
 
 const app = express()
 
@@ -15,21 +15,22 @@ if (!pkg.isProduction && !pkg.isTesting) {
 
 const server = app.listen(3000, () => {
   console.log('listening on port 3000');
+  db.sync()
 });
 
 var io = require('socket.io')(server);
 
 io.on('connection', (socket) => {
-  socket.emit('news', {hello: 'world'})
+  socket.emit('news', { hello: 'world' });
   console.log('user connected');
 
-  socket.on('my other event', (data) => {
-    socket.broadcast.emit('post', {someone: 'entered'})
+  socket.on('input', (data) => {
+    socket.broadcast.emit('output', { output: data.input });
   })
 
-  socket.on('disconnect', (socket) => {
+  socket.on('disconnect', (data) => {
     console.log('user disconnected');
-    io.emit('user disconnected')
+    io.emit('user disconnected');
   });
 });
 
