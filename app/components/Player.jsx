@@ -24,7 +24,7 @@ class PlayerComponent extends Component {
 
   setInput(e) {
     this.setState({ input: e.target.value });
-    const answer = this.props.questionList[this.props.currentQuestion].answer;
+    const answer = this.props.questionList[this.props.currentQuestion] && this.props.questionList[this.props.currentQuestion].answer;
     if (this.state.input === answer) {
       e.target.value = ''
       this.props.callAddToMyPoints();
