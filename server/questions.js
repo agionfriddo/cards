@@ -5,6 +5,7 @@ const models = require('APP/db/models');
 const Question = models.Question;
 
 router.get('/', (req, res, next) => {
+  console.log('LOL')
   Question.findAll({})
   .then(questions => {
     res.json(questions);
@@ -56,4 +57,4 @@ router.delete('/:questionId', (req, res, next) => {
   .catch(next);
 });
 
-module.exports(router);
+module.exports = router;

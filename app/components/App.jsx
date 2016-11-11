@@ -1,18 +1,31 @@
 import React from 'react';
 import Navbar from './Navbar';
 import Player from './Player';
+import Opponent from './Opponent';
+import Question from './Question'
+import io from 'socket.io-client';
+const socket = io.connect('http://localhost:3000');
+
 
 const App = () => (
-  <div className="mdl-layout mdl-js-layout">
-    <Navbar>
-      <h1>YO EXAMPLE</h1>
-      <Player />
-      <button
-        className="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored"
-      >
-        <i className="material-icons">add</i>
-      </button>
-    </Navbar>
+  <div>
+      <Navbar>
+        <div className="container">
+          <div className="row">
+            <div className="col-md-12">
+            <Question socket={socket}/>
+            </div>
+          </div>
+          <div className="row">
+          <div className="col-md-6">
+            <Player socket={socket}/>
+          </div>
+          <div className="col-md-6">
+            <Opponent socket={socket}/>
+          </div>
+        </div>
+      </div>
+      </Navbar>
   </div>
 )
 

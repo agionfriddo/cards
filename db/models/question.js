@@ -13,10 +13,6 @@ const Question = db.define('questions', {
   points: {
     type: Sequelize.INTEGER,
     allowNull: false
-  },
-  category: {
-    type: Sequelize.STRING,
-    allowNull: false
   }
 });
 

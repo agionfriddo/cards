@@ -1,15 +1,12 @@
-import { combineReducers } from 'redux'
-
-
-
-const example = (state=[], action) => {
-  switch(action.type) {
-    default: return state;
-  }
-}
+import { combineReducers } from 'redux';
+import questionReducer from './questions';
+import currentQuestionReducer from './currentQuestion';
+import gameReducer from './currentGame';
 
 const rootReducer = combineReducers({
-  example: example
-})
+  questionList: questionReducer,
+  currentQuestion: currentQuestionReducer,
+  currentGame: gameReducer
+});
 
 export default rootReducer;

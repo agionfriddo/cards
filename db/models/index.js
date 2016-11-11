@@ -6,5 +6,13 @@
 
 const Question = require('APP/db/models/question');
 const User = require('APP/db/models/user');
+const Group = require('APP/db/models/group');
+const Game = require('APP/db/models/game');
 
-module.exports = { Question, User }
+Question.belongsTo(Group);
+Group.belongsTo(User);
+Game.belongsTo(Group);
+Game.belongsTo(User, { as: 'winner' })
+Game.belongsTo(User, { as: 'loser' })
+
+module.exports = { Question, User, Group, Game }

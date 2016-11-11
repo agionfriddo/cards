@@ -21,23 +21,28 @@ const server = app.listen(3000, () => {
 var io = require('socket.io')(server);
 
 io.on('connection', (socket) => {
-  socket.emit('news', { hello: 'world' });
   console.log('user connected');
 
   socket.on('input', (data) => {
     socket.broadcast.emit('output', { output: data.input });
-  })
+  });
 
-  socket.on('disconnect', (data) => {
+  socket.on('correct', (data) => {
+    console.log('CORRECT!', data);
+    socket.broadcast.emit('plusOpponent', { opponentPoints: data.points })
+    io.emit('nextQuestion');
+  });
+
+  socket.on('disconnect', () => {
     console.log('user disconnected');
-    io.emit('user disconnected');
+    socket.broadcast.emit('user disconnected');
   });
 });
 
 
 module.exports = app
   // We'll store the whole session in a cookie
-  .use(require('cookie-session') ({
+  .use(require('cookie-session')({
     name: 'session',
     keys: [process.env.SESSION_SECRET || 'an insecure secret key'],
   }))
