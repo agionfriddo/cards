@@ -13,19 +13,13 @@ class PlayerComponent extends Component {
     };
     this.setInput = this.setInput.bind(this);
 
-    this.props.socket.on('nextQuestion', data => {
-      console.log('YOYOYOYOYO', this.props);
+    this.props.socket.on('nextQuestion', () => {
       this.props.setNextQuestion();
     });
-
-  }
-
-  componentDidMount() {
-
   }
 
   componentDidUpdate() {
-    this.props.socket.emit('input', { input: this.state.input });
+    this.props.socket.emit('input', { opponentText: this.state.input });
     }
 
 
@@ -34,10 +28,24 @@ class PlayerComponent extends Component {
     const answer = this.props.questionList[this.props.currentQuestion].answer;
     if (this.state.input === answer) {
       e.target.value = ''
-      this.props.callAddToMyPoints()
-      this.props.socket.emit('correct', { points: this.props.currentGame.myPoints + 1 });
+      this.props.callAddToMyPoints();
+      this.props.socket.emit('correct', { opponentPoints: this.props.currentGame.myPoints + 1 });
     }
   }
+
+  showWinOrLose() {
+    if(this.props.currentQuestion === this.props.questionList.length) {
+      if(this.props.currentGame.myPoints > this.props.currentGame.opponentPoints) {
+        return <h1>YOU WIN! :D</h1>
+      }
+      else {
+        return (
+          <h1>YOU LOSE! D:</h1>
+        )
+      }
+    }
+  }
+
 
   render() {
     return (
@@ -49,6 +57,9 @@ class PlayerComponent extends Component {
             <input id="myInput" className="mdl-textfield__input" type="text" onChange={this.setInput} />
             <label htmlFor="myInput" className="mdl-textfield__label">Text...</label>
           </form>
+        </div>
+        <div>
+          {this.showWinOrLose()}
         </div>
         </div>
     );

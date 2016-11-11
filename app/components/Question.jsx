@@ -8,7 +8,6 @@ class QuestionComponent extends Component {
   }
 
   showQuestion() {
-    console.log(this.props)
     if(this.props.currentQuestion === this.props.questionList.length) {
       return (
         <h3>GAME OVER!</h3>

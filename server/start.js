@@ -23,13 +23,12 @@ var io = require('socket.io')(server);
 io.on('connection', (socket) => {
   console.log('user connected');
 
-  socket.on('input', (data) => {
-    socket.broadcast.emit('output', { output: data.input });
+  socket.on('input', ({ opponentText }) => {
+    socket.broadcast.emit('opponentTyping', { opponentText });
   });
 
-  socket.on('correct', (data) => {
-    console.log('CORRECT!', data);
-    socket.broadcast.emit('plusOpponent', { opponentPoints: data.points })
+  socket.on('correct', ({ opponentPoints }) => {
+    socket.broadcast.emit('plusOpponent', { opponentPoints })
     io.emit('nextQuestion');
   });
 

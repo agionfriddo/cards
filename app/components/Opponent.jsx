@@ -10,12 +10,12 @@ class OpponentComponent extends Component {
       opponentText: '',
       opponentPoints: 0
     };
-    this.props.socket.on('output', data => {
-      this.setState({ opponentText: data.output });
+    this.props.socket.on('opponentTyping', ({ opponentText }) => {
+      this.setState({ opponentText });
     });
-    this.props.socket.on('plusOpponent', data => {
-      console.log("DATA POINTS LOL", data.opponentPoints)
-      this.setState({ opponentPoints:  data.opponentPoints});
+    this.props.socket.on('plusOpponent', ({ opponentPoints }) => {
+      this.setState({ opponentPoints });
+      this.props.callSetOpponentPoints(opponentPoints)
     });
   }
 
@@ -32,10 +32,10 @@ class OpponentComponent extends Component {
 }
 
 const mapStateToProps = ({ currentGame }) => ({ currentGame })
-const mapDispatchToProps = (dispatch) => ({
-  callSetOpponentPoints: callSetOpponentPoints(dispatch)
-});
+const mapDispatchToProps = {
+  callSetOpponentPoints: callSetOpponentPoints
+}
 
-const Opponent = connect(null, mapDispatchToProps)(OpponentComponent);
+const Opponent = connect(mapStateToProps, mapDispatchToProps)(OpponentComponent);
 
 export default Opponent;

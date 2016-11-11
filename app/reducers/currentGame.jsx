@@ -21,7 +21,9 @@ export const callAddToMyPoints = dispatch => {
 };
 
 export const callSetOpponentPoints = points => dispatch => {
-  return () => dispatch(setOpponentPoints(points));
+  console.log("YO YO YO")
+  console.log(points)
+  dispatch(setOpponentPoints(points));
 };
 
 const initialState = {
@@ -33,8 +35,10 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case START_GAME: return state;
     case SAVE_GAME: return state;
-    case ADD_TO_MY_POINTS: return { myPoints: state.myPoints + 1 };
-    case SET_OPPONENT_POINTS: return { opponentPoints: state.opponentPoints + 1 };
+    case ADD_TO_MY_POINTS:
+      return { myPoints: state.myPoints + 1, opponentPoints: state.opponentPoints };
+    case SET_OPPONENT_POINTS:
+      return { myPoints: state.myPoints, opponentPoints: state.opponentPoints + 1 };
     default: return state;
   }
 };
