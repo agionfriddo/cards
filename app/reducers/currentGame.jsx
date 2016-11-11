@@ -21,8 +21,6 @@ export const callAddToMyPoints = dispatch => {
 };
 
 export const callSetOpponentPoints = points => dispatch => {
-  console.log("YO YO YO")
-  console.log(points)
   dispatch(setOpponentPoints(points));
 };
 

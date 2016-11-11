@@ -22,7 +22,6 @@ class PlayerComponent extends Component {
     this.props.socket.emit('input', { opponentText: this.state.input });
     }
 
-
   setInput(e) {
     this.setState({ input: e.target.value });
     const answer = this.props.questionList[this.props.currentQuestion].answer;
@@ -34,14 +33,14 @@ class PlayerComponent extends Component {
   }
 
   showWinOrLose() {
-    if(this.props.currentQuestion === this.props.questionList.length) {
-      if(this.props.currentGame.myPoints > this.props.currentGame.opponentPoints) {
-        return <h1>YOU WIN! :D</h1>
+    if (this.props.currentQuestion === this.props.questionList.length) {
+      if (this.props.currentGame.myPoints > this.props.currentGame.opponentPoints) {
+        return <h1>YOU WIN! :D</h1>;
       }
       else {
         return (
           <h1>YOU LOSE! D:</h1>
-        )
+        );
       }
     }
   }
