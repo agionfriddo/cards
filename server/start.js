@@ -13,7 +13,7 @@ if (!pkg.isProduction && !pkg.isTesting) {
   app.use(require('volleyball'))
 }
 
-const server = app.listen(3000, () => {
+const server = app.listen(process.env.PORT || 3000, () => {
   console.log('listening on port 3000');
   db.sync()
 });
@@ -39,7 +39,7 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log('user disconnected');
     socket.broadcast.emit('user disconnected');
-    
+
   });
 });
 
