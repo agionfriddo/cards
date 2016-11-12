@@ -71,8 +71,9 @@ class QuestionFormComponent extends Component {
                   rows="3"
                   id="content"
                   onChange={this.updateContent}
+                  placeholder="Question..."
                 />
-                <label className="mdl-textfield__label" htmlFor="content">Question...</label>
+                <label className="mdl-textfield__label" htmlFor="content"></label>
               </div>
             </form>
             <form action="#">
@@ -81,8 +82,9 @@ class QuestionFormComponent extends Component {
                   className="mdl-textfield__input"
                   type="text" rows="3" id="answer"
                   onChange={this.updateAnswer}
+                  placeholder="Answer..."
                 />
-                <label className="mdl-textfield__label" htmlFor="answer">Answer...</label>
+                <label className="mdl-textfield__label" htmlFor="answer"></label>
               </div>
             </form>
             <button

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setNextQuestion } from '../reducers/currentQuestion';
-import { callAddToMyPoints } from '../reducers/currentGame'
+import { callAddToMyPoints } from '../reducers/currentGame';
+import { callClearQuestions } from '../reducers/questions';
 
 
 class PlayerComponent extends Component {
@@ -29,7 +30,7 @@ class PlayerComponent extends Component {
     this.setState({ input: e.target.value });
     const answer = this.props.questionList[this.props.currentQuestion].answer;
     if (this.state.input === answer) {
-      e.target.value = ''
+      e.target.value = '';
       this.props.callAddToMyPoints();
       this.props.socket.emit('correct', {
         opponentPoints: this.props.currentGame.myPoints + 1,
@@ -37,6 +38,7 @@ class PlayerComponent extends Component {
       });
     }
   }
+
 
   showWinOrLose() {
     if (this.props.currentQuestion === this.props.questionList.length) {
@@ -89,7 +91,7 @@ const mapStateToProps = ({
   });
 const mapDispatchToProps = (dispatch) => ({
   setNextQuestion: setNextQuestion(dispatch),
-  callAddToMyPoints: callAddToMyPoints(dispatch)
+  callAddToMyPoints: callAddToMyPoints(dispatch),
 });
 const Player = connect(mapStateToProps, mapDispatchToProps)(PlayerComponent);
 

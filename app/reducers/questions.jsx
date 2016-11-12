@@ -3,11 +3,13 @@ import axios from 'axios';
 // ------------- CONSTANTS
 const SET_QUESTIONS = 'SET_QUESTIONS';
 const ADD_QUESTION = 'ADD_QUESTION'
+const CLEAR_QUESTIONS = 'CLEAR_QUESTIONS'
 
 
 // ------------- SYNC ACTION CREATORS
 export const setQuestions = questionList => ({ type: SET_QUESTIONS, questionList });
 export const addQuestion = question => ({ type: ADD_QUESTION, question })
+export const clearQuestions = () => ({ type: CLEAR_QUESTIONS })
 
 
 // ------------- ASYNC ACTION CREATORS
@@ -30,6 +32,10 @@ export const createQuestion = question => dispatch => {
   });
 };
 
+export const callClearQuestions = dispatch => {
+  dispatch(clearQuestions());
+};
+
 // ------------- REDUCER
 
 const initialState = [{
@@ -46,6 +52,8 @@ const reducer = (state = initialState, action) => {
           return action.questionList;
         case ADD_QUESTION:
           return state.concat(action.question);
+        case CLEAR_QUESTIONS:
+          return initialState;
     default: return state;
     }
 };

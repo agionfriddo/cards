@@ -32,8 +32,9 @@ class GroupFormComponent extends Component {
               rows="3"
               id="name"
               onChange={this.updateName}
+              placeholder="Question Group Name..."
             />
-            <label className="mdl-textfield__label" htmlFor="name">Question Group Name...</label>
+            <label className="mdl-textfield__label" htmlFor="name"></label>
           </div>
         </form>
         <form action="#">
@@ -44,8 +45,9 @@ class GroupFormComponent extends Component {
               rows="3"
               id="category"
               onChange={this.updateCategory}
+              placeholder="Question Group Category..."
             />
-            <label className="mdl-textfield__label" htmlFor="category">Question Group Category...</label>
+            <label className="mdl-textfield__label" htmlFor="category"></label>
           </div>
         </form>
         <button

@@ -11,22 +11,26 @@ import Game from './components/Game';
 import TopicPicker from './components/TopicPicker'
 import Form from './components/Form'
 import { store } from './store';
-import { fetchQuestionsByGroup } from './reducers/questions';
+import { fetchQuestionsByGroup, callClearQuestions } from './reducers/questions';
 import { fetchAllGroups, fetchGroupById } from './reducers/groups';
 import { createSocket } from './reducers/socket'
+import { callReset } from './reducers/currentQuestion'
 
 const onGameEnter = (data) => {
   console.log(data)
+  store.dispatch(callReset);
   store.dispatch(fetchQuestionsByGroup({ groupId: data.params.groupId }));
   store.dispatch(fetchGroupById({ groupId: data.params.groupId }));
   store.dispatch(createSocket(socket));
 };
 const onTopicsEnter = () => {
+  store.dispatch(callClearQuestions);
   store.dispatch(fetchAllGroups);
 };
 
 const onFormEnter = () => {
   store.dispatch(fetchAllGroups);
+  store.dispatch(callClearQuestions)
 };
 
 render (
@@ -34,7 +38,7 @@ render (
       <Router history={browserHistory}>
         <Route path='/' component={App}>
           <IndexRoute component={TopicPicker} onEnter={onTopicsEnter} />
-          <Route path="/topics" component={TopicPicker} onEnter={onTopicsEnter} />
+          <Route path="/home" component={TopicPicker} onEnter={onTopicsEnter} />
           <Route path="/game" component={Game} onEnter={onGameEnter} />
           <Route path="/game/:groupId" component={Game} onEnter={onGameEnter} />
           <Route path="/form" component={Form} onEnter={onFormEnter} />
