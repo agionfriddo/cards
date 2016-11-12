@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setNextQuestion } from '../reducers/currentQuestion';
-import { callAddToMyPoints } from '../reducers/currentGame';
+import { callAddToMyPoints, callResetPoints } from '../reducers/currentGame';
 import { callClearQuestions } from '../reducers/questions';
 
 
@@ -88,7 +88,7 @@ const mapStateToProps = ({
   });
 const mapDispatchToProps = (dispatch) => ({
   setNextQuestion: setNextQuestion(dispatch),
-  callAddToMyPoints: callAddToMyPoints(dispatch),
+  callAddToMyPoints: callAddToMyPoints(dispatch)
 });
 const Player = connect(mapStateToProps, mapDispatchToProps)(PlayerComponent);
 

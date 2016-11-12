@@ -2,23 +2,25 @@
 import React from 'react';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { render } from 'react-dom';
-import { connect, Provider } from 'react-redux';
+import { Provider } from 'react-redux';
 import io from 'socket.io-client';
-const socket = io.connect('http://localhost:3000');
-
 import App from './components/App';
 import Game from './components/Game';
-import TopicPicker from './components/TopicPicker'
-import Form from './components/Form'
+import TopicPicker from './components/TopicPicker';
+import Form from './components/Form';
 import { store } from './store';
 import { fetchQuestionsByGroup, callClearQuestions } from './reducers/questions';
 import { fetchAllGroups, fetchGroupById } from './reducers/groups';
-import { createSocket } from './reducers/socket'
-import { callReset } from './reducers/currentQuestion'
+import { createSocket } from './reducers/socket';
+import { callReset } from './reducers/currentQuestion';
+import { callResetPoints } from './reducers/currentGame'
+
+const socket = io.connect();
 
 const onGameEnter = (data) => {
   console.log(data)
   store.dispatch(callReset);
+  store.dispatch(callResetPoints)
   store.dispatch(fetchQuestionsByGroup({ groupId: data.params.groupId }));
   store.dispatch(fetchGroupById({ groupId: data.params.groupId }));
   store.dispatch(createSocket(socket));
