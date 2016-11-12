@@ -11,12 +11,13 @@ import Game from './components/Game';
 import TopicPicker from './components/TopicPicker'
 import { store } from './store';
 import { fetchQuestionsByGroup } from './reducers/questions';
-import { fetchAllGroups } from './reducers/groups';
+import { fetchAllGroups, fetchGroupById } from './reducers/groups';
 import { createSocket } from './reducers/socket'
 
 const onGameEnter = (data) => {
   console.log(data)
   store.dispatch(fetchQuestionsByGroup({ groupId: data.params.groupId }));
+  store.dispatch(fetchGroupById({ groupId: data.params.groupId }));
   store.dispatch(createSocket(socket));
 };
 const onTopicsEnter = () => {

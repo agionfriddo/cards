@@ -21,7 +21,13 @@ export const fetchQuestionsByGroup = ({ groupId }) => dispatch => {
 
 // ------------- REDUCER
 
-const initialState = [];
+const initialState = [{
+  id: 0,
+  content: '',
+  answer: '',
+  points: 0,
+  group_id: 0
+}];
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {

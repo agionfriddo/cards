@@ -13,6 +13,12 @@ router.get('/', (req, res, next) => {
   .catch(next);
 });
 
+router.get('/:groupId', (req, res, next) => {
+  Group.findById(req.params.groupId)
+  .then(group => res.send(group))
+  .catch(next);
+});
+
 router.post('/', (req, res, next) => {
   Group.create(req.body)
   .then(group => {

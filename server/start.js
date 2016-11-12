@@ -23,14 +23,18 @@ var io = require('socket.io')(server);
 io.on('connection', (socket) => {
   console.log('user connected');
 
-  socket.on('input', ({ opponentText }) => {
-    socket.broadcast.emit('opponentTyping', { opponentText });
+  socket.on('input', ({ opponentText, groupId }) => {
+    socket.broadcast.to(groupId).emit('opponentTyping', { opponentText });
   });
 
-  socket.on('correct', ({ opponentPoints }) => {
-    socket.broadcast.emit('plusOpponent', { opponentPoints })
-    io.emit('nextQuestion');
+  socket.on('correct', ({ opponentPoints, groupId }) => {
+    socket.broadcast.to(groupId).emit('plusOpponent', { opponentPoints });
+    io.in(groupId).emit('nextQuestion');
   });
+
+  socket.on('setUpRoom', ({ groupId }) => (
+    socket.join(groupId)
+  ));
 
   socket.on('disconnect', () => {
     console.log('user disconnected');

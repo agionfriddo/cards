@@ -14,9 +14,19 @@ export const fetchAllGroups = dispatch => {
     .then(res => dispatch(setGroups(res.data)));
 };
 
+export const fetchGroupById = ({ groupId }) => dispatch => {
+  axios.get(`/api/groups/${groupId}`)
+  .then(group => dispatch(setGroups([group.data])));
+};
+
 // ------------- REDUCER
 
-const initialState = [];
+const initialState = [{
+  id: 0,
+  name: '',
+  category: '',
+  user_id: 0
+}];
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {

@@ -33,7 +33,7 @@ class QuestionComponent extends Component {
 
 }
 
-const mapStateToProps = ({ questionList, currentQuestion, socket }) => ({ questionList, currentQuestion, socket });
+const mapStateToProps = ({ questionList, currentQuestion }) => ({ questionList, currentQuestion });
 const Question = connect(mapStateToProps)(QuestionComponent);
 
 export default Question;

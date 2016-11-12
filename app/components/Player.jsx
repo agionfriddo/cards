@@ -18,17 +18,27 @@ class PlayerComponent extends Component {
     });
   }
 
+  componentDidMount() {
+  }
+
   componentDidUpdate() {
-    this.props.socket.emit('input', { opponentText: this.state.input });
-    }
+    this.props.socket.emit('setUpRoom', { groupId: this.props.group[0].id });
+    this.props.socket.emit('input', {
+      opponentText: this.state.input,
+      groupId: this.props.group[0].id
+    });
+  }
 
   setInput(e) {
     this.setState({ input: e.target.value });
-    const answer = this.props.questionList[this.props.currentQuestion] && this.props.questionList[this.props.currentQuestion].answer;
+    const answer = this.props.questionList[this.props.currentQuestion].answer;
     if (this.state.input === answer) {
       e.target.value = ''
       this.props.callAddToMyPoints();
-      this.props.socket.emit('correct', { opponentPoints: this.props.currentGame.myPoints + 1 });
+      this.props.socket.emit('correct', {
+        opponentPoints: this.props.currentGame.myPoints + 1,
+        groupId: this.props.group[0].id
+      });
     }
   }
 
@@ -53,8 +63,15 @@ class PlayerComponent extends Component {
       <div>My Points: {this.props.currentGame.myPoints}</div>
         <div className="mdl-textfield mdl-js-textfield">
           <form action="#">
-            <input id="myInput" className="mdl-textfield__input" type="text" onChange={this.setInput} />
-            <label htmlFor="myInput" className="mdl-textfield__label">Text...</label>
+            <input
+              id="myInput"
+              className="mdl-textfield__input"
+              type="text"
+              onChange={this.setInput}
+              placeholder="Answer"
+              autoFocus='true'
+            />
+            <label htmlFor="myInput" className="mdl-textfield__label"></label>
           </form>
         </div>
         <div>
@@ -66,7 +83,10 @@ class PlayerComponent extends Component {
 
 }
 
-const mapStateToProps = ({ questionList, currentQuestion, currentGame, socket }) => ({ questionList, currentQuestion, currentGame, socket });
+const mapStateToProps = ({
+  questionList, currentQuestion, currentGame, socket, group }) => ({
+    questionList, currentQuestion, currentGame, socket, group
+  });
 const mapDispatchToProps = (dispatch) => ({
   setNextQuestion: setNextQuestion(dispatch),
   callAddToMyPoints: callAddToMyPoints(dispatch)
