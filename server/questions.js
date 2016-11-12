@@ -29,7 +29,7 @@ router.get('/:questionId', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-  Question.create(req.body)
+  Question.create(req.body.question)
   .then(question => {
     res.status(201).send(question);
   })

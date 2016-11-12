@@ -2,10 +2,12 @@ import axios from 'axios';
 
 // ------------- CONSTANTS
 const SET_QUESTIONS = 'SET_QUESTIONS';
+const ADD_QUESTION = 'ADD_QUESTION'
 
 
 // ------------- SYNC ACTION CREATORS
 export const setQuestions = questionList => ({ type: SET_QUESTIONS, questionList });
+export const addQuestion = question => ({ type: ADD_QUESTION, question })
 
 
 // ------------- ASYNC ACTION CREATORS
@@ -16,7 +18,16 @@ export const fetchAllQuestions = dispatch => {
 
 export const fetchQuestionsByGroup = ({ groupId }) => dispatch => {
   axios.get(`/api/questions/${groupId}`)
-  .then(res => dispatch(setQuestions(res.data)));
+  .then(res => {
+    dispatch(setQuestions(res.data));
+  });
+};
+
+export const createQuestion = question => dispatch => {
+  axios.post('/api/questions', { question })
+  .then(res => {
+    dispatch(addQuestion(res.data));
+  });
 };
 
 // ------------- REDUCER
@@ -32,7 +43,9 @@ const initialState = [{
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_QUESTIONS:
-            return action.questionList;
+          return action.questionList;
+        case ADD_QUESTION:
+          return state.concat(action.question);
     default: return state;
     }
 };

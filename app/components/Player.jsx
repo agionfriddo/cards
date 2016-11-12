@@ -12,13 +12,9 @@ class PlayerComponent extends Component {
       typing: false,
     };
     this.setInput = this.setInput.bind(this);
-
     this.props.socket.on('nextQuestion', () => {
       this.props.setNextQuestion();
     });
-  }
-
-  componentDidMount() {
   }
 
   componentDidUpdate() {

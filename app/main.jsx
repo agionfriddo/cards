@@ -33,7 +33,11 @@ render (
   <Provider store={store}>
       <Router history={browserHistory}>
         <Route path='/' component={App}>
+<<<<<<< HEAD
           <IndexRoute component={TopicPicker} onEnter={onTopicsEnter} />
+=======
+          <IndexRoute component={TopicPicker} />
+>>>>>>> makingQuestions
           <Route path="/topics" component={TopicPicker} onEnter={onTopicsEnter} />
           <Route path="/game" component={Game} onEnter={onGameEnter} />
           <Route path="/game/:groupId" component={Game} onEnter={onGameEnter} />
