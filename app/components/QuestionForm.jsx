@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { fetchQuestionsByGroup, createQuestion } from '../reducers/questions';
 
 class QuestionFormComponent extends Component {
   constructor(props) {
@@ -7,9 +8,32 @@ class QuestionFormComponent extends Component {
     this.state = {
       content: '',
       answer: '',
-      points: 0,
-      group_id: 0
+      points: 1,
+      group_id: null
     };
+    this.onSelectGroup = this.onSelectGroup.bind(this);
+    this.loadQuestions = this.loadQuestions.bind(this);
+    this.updateContent = this.updateContent.bind(this);
+    this.updateAnswer = this.updateAnswer.bind(this);
+    this.sendQuestion = this.sendQuestion.bind(this);
+  }
+  onSelectGroup(e) {
+    this.setState({ group_id: e.target.value });
+  }
+  loadQuestions() {
+    this.props.fetchQuestionsByGroup({ groupId: this.state.group_id });
+  }
+  updateContent(e) {
+    e.preventDefault();
+    this.setState({ content: e.target.value });
+  }
+  updateAnswer(e) {
+    e.preventDefault();
+    this.setState({ answer: e.target.value });
+  }
+  sendQuestion(e) {
+    e.preventDefault();
+    this.props.createQuestion(this.state);
   }
 
   render() {
@@ -17,45 +41,82 @@ class QuestionFormComponent extends Component {
       <div className="col-md-8">
         <h3>Add a Question Below</h3>
           <div className="form-group">
-            <select className="form-control" id="sel1">
+            <select
+              className="form-control" id="sel1"
+              onChange={this.onSelectGroup}
+            >
               <option>Select a Group of Questions to Add To</option>
               {
                 this.props.group.map(group => (
-                  <option key={group.id} value={group.id}>{group.name}</option>
+                  <option key={group.id} value={group.id}>
+                    {group.name}
+                  </option>
                 ))
               }
             </select>
           </div>
-        <form action="#">
-          <div className="mdl-textfield mdl-js-textfield">
-            <textarea className="mdl-textfield__input" type="text" rows="3" id="content" />
-            <label className="mdl-textfield__label" htmlFor="content">Question...</label>
+          <button
+            className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
+            onClick={this.loadQuestions}
+          >
+            Select Question Group
+          </button>
+        <div className="row">
+          <div className="col-md-6">
+            <form action="#">
+              <div className="mdl-textfield mdl-js-textfield">
+                <textarea
+                  className="mdl-textfield__input"
+                  type="text"
+                  rows="3"
+                  id="content"
+                  onChange={this.updateContent}
+                />
+                <label className="mdl-textfield__label" htmlFor="content">Question...</label>
+              </div>
+            </form>
+            <form action="#">
+              <div className="mdl-textfield mdl-js-textfield">
+                <textarea
+                  className="mdl-textfield__input"
+                  type="text" rows="3" id="answer"
+                  onChange={this.updateAnswer}
+                />
+                <label className="mdl-textfield__label" htmlFor="answer">Answer...</label>
+              </div>
+            </form>
+            <button
+              className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
+              onClick={this.sendQuestion}
+            >
+              Create Question
+            </button>
           </div>
-        </form>
-        <form action="#">
-          <div className="mdl-textfield mdl-js-textfield">
-            <textarea className="mdl-textfield__input" type="text" rows="3" id="answer" />
-            <label className="mdl-textfield__label" htmlFor="answer">Answer...</label>
+          <div className="col-md-6">
+            {
+              this.props.questionList.map(question => {
+                return (
+                  <div key={question.id}>
+                    <h4>{question.content}</h4>
+                    <p>{question.answer}</p>
+                  </div>
+                )
+              })
+            }
           </div>
-        </form>
-        <form action="#">
-          <div className="mdl-textfield mdl-js-textfield">
-            <input className="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="points" />
-            <label className="mdl-textfield__label" htmlFor="points">Point Value...</label>
-            <span className="mdl-textfield__error">Input is not a number!</span>
-          </div>
-        </form>
-        <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-          Create Question
-        </button>
+        </div>
       </div>
     );
   }
 
 }
 
-const mapStateToProps = ({ group }) => ({ group });
+const mapStateToProps = ({ group, questionList }) => ({ group, questionList });
+const mapDispatchToProps = {
+  fetchQuestionsByGroup,
+  createQuestion
+};
 
-const QuestionForm = connect(mapStateToProps)(QuestionFormComponent);
+const QuestionForm = connect(mapStateToProps, mapDispatchToProps)(QuestionFormComponent);
 
 export default QuestionForm;
