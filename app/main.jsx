@@ -32,7 +32,7 @@ const onFormEnter = () => {
 render (
   <Provider store={store}>
       <Router history={browserHistory}>
-        <IndexRoute path='/' />
+        <IndexRoute component={TopicPicker} />
         <Route path='/' component={App}>
           <Route path="/topics" component={TopicPicker} onEnter={onTopicsEnter} />
           <Route path="/game" component={Game} onEnter={onGameEnter} />
