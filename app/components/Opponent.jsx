@@ -21,9 +21,9 @@ class OpponentComponent extends Component {
 
   render() {
     return (
-      <div>
-      <h1>Opponent</h1>
-      <p>Opponent Points: { this.state.opponentPoints && this.state.opponentPoints }</p>
+      <div id="opponent">
+        <h1>Opponent</h1>
+        <p id="opponent-points">Opponent Points: { this.state.opponentPoints && this.state.opponentPoints }</p>
         <h4>Oppponent's Answer: {this.state.opponentText}</h4>
       </div>
     );

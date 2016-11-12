@@ -39,7 +39,6 @@ class PlayerComponent extends Component {
     }
   }
 
-
   showWinOrLose() {
     if (this.props.currentQuestion === this.props.questionList.length) {
       if (this.props.currentGame.myPoints > this.props.currentGame.opponentPoints) {
@@ -57,32 +56,30 @@ class PlayerComponent extends Component {
     }
   }
 
-
   render() {
     return (
-      <div>
-      <h1>Me</h1>
-      <div>My Points: {this.props.currentGame.myPoints}</div>
-        <div className="mdl-textfield mdl-js-textfield">
-          <form action="#">
-            <input
-              id="myInput"
-              className="mdl-textfield__input"
-              type="text"
-              onChange={this.setInput}
-              placeholder="Answer"
-              autoFocus='true'
-            />
-            <label htmlFor="myInput" className="mdl-textfield__label"></label>
-          </form>
-        </div>
-        <div>
-          {this.showWinOrLose()}
-        </div>
+      <div id="player">
+        <h1>Me</h1>
+        <div id="my-points">My Points: {this.props.currentGame.myPoints}</div>
+          <div className="mdl-textfield mdl-js-textfield">
+            <form action="#">
+              <input
+                id="myInput"
+                className="mdl-textfield__input"
+                type="text"
+                onChange={this.setInput}
+                placeholder="Answer"
+                autoFocus='true'
+              />
+              <label htmlFor="myInput" className="mdl-textfield__label"></label>
+            </form>
+          </div>
+          <div>
+            {this.showWinOrLose()}
+          </div>
         </div>
     );
   }
-
 }
 
 const mapStateToProps = ({

@@ -10,11 +10,11 @@ const seedUsers = () => db.Promise.map([
 ], user => db.model('users').create(user));
 
 const seedGroups = () => db.Promise.map([
-  { name: "Vocab Unit 1", category: 'Vocabulary', user_id: 2 },
-  { name: "Othello", category: 'Literature', user_id: 2 },
-  { name: "JavaScript Libraries", category: "Computer Programming", user_id: 2 },
-  { name: "Fast Math", category: "Mathematics", user_id: 2 },
-  { name: "Times Tables", category: "Mathematics", user_id: 2 }
+  { id: 1, name: "Vocab Unit 1", category: 'Vocabulary', user_id: 2 },
+  { id: 2, name: "Othello", category: 'Literature', user_id: 2 },
+  { id: 3, name: "JavaScript Libraries", category: "Computer Programming", user_id: 2 },
+  { id: 4, name: "Fast Math", category: "Mathematics", user_id: 2 },
+  { id: 5, name: "Times Tables", category: "Mathematics", user_id: 2 }
 ], group => db.model('groups').create(group));
 
 const seedQuestions = () => db.Promise.map([

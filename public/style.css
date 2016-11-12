@@ -1,0 +1,18 @@
+#question {
+  border-bottom: 5px solid;
+  border-color: black;
+  text-align: center;
+}
+
+#player {
+  border-right: 5px solid;
+  border-color: black;
+}
+
+#my-points {
+  font-size: 30px;
+}
+
+#opponent-points {
+  font-size: 30px;
+}

@@ -24,7 +24,7 @@ class QuestionComponent extends Component {
 
   render() {
     return (
-      <div>
+      <div id="question">
       <h1>Questions</h1>
         {this.showQuestion()}
       </div>
