@@ -2,10 +2,12 @@ import axios from 'axios';
 
 // ------------- CONSTANTS
 const SET_GROUPS = 'SET_GROUPS';
+const ADD_TO_GROUP = 'ADD_TO_GROUP';
 
 
 // ------------- SYNC ACTION CREATORS
 export const setGroups = groupList => ({ type: SET_GROUPS, groupList });
+export const addToGroup = group => ({ type: ADD_TO_GROUP, group });
 
 
 // ------------- ASYNC ACTION CREATORS
@@ -17,6 +19,12 @@ export const fetchAllGroups = dispatch => {
 export const fetchGroupById = ({ groupId }) => dispatch => {
   axios.get(`/api/groups/${groupId}`)
   .then(group => dispatch(setGroups([group.data])));
+};
+
+export const createGroup = (group) => dispatch => {
+  console.log(group)
+  axios.post('/api/groups', { group })
+  .then(group => dispatch(addToGroup(group.data)));
 };
 
 // ------------- REDUCER
@@ -31,7 +39,9 @@ const initialState = [{
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_GROUPS:
-            return action.groupList;
+          return action.groupList;
+        case ADD_TO_GROUP:
+          return state.concat(action.group);
     default: return state;
     }
 };

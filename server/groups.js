@@ -20,7 +20,8 @@ router.get('/:groupId', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-  Group.create(req.body)
+  console.log(req.body.group)
+  Group.create(req.body.group)
   .then(group => {
     res.status(201).send(group);
   })

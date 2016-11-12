@@ -47,10 +47,14 @@ class PlayerComponent extends Component {
       if (this.props.currentGame.myPoints > this.props.currentGame.opponentPoints) {
         return <h1>YOU WIN! :D</h1>;
       }
-      else {
+      else if(this.props.currentGame.myPoints < this.props.currentGame.opponentPoints) {
         return (
           <h1>YOU LOSE! D:</h1>
         );
+      } else {
+        return (
+          <h1>Tie Game. :|</h1>
+        )
       }
     }
   }

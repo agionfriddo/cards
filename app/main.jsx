@@ -9,6 +9,7 @@ const socket = io.connect('http://localhost:3000');
 import App from './components/App';
 import Game from './components/Game';
 import TopicPicker from './components/TopicPicker'
+import Form from './components/Form'
 import { store } from './store';
 import { fetchQuestionsByGroup } from './reducers/questions';
 import { fetchAllGroups, fetchGroupById } from './reducers/groups';
@@ -21,8 +22,12 @@ const onGameEnter = (data) => {
   store.dispatch(createSocket(socket));
 };
 const onTopicsEnter = () => {
-  store.dispatch(fetchAllGroups)
-}
+  store.dispatch(fetchAllGroups);
+};
+
+const onFormEnter = () => {
+  store.dispatch(fetchAllGroups);
+};
 
 render (
   <Provider store={store}>
@@ -31,6 +36,7 @@ render (
           <Route path="/topics" component={TopicPicker} onEnter={onTopicsEnter}/>
           <Route path="/game" component={Game} onEnter={onGameEnter} />
           <Route path="/game/:groupId" component={Game} onEnter={onGameEnter} />
+          <Route path="/form" component={Form} onEnter={onFormEnter} />
         </Route>
       </Router>
     </Provider>,
