@@ -31,7 +31,7 @@ class OpponentComponent extends Component {
 
 }
 
-const mapStateToProps = ({ currentGame }) => ({ currentGame })
+const mapStateToProps = ({ currentGame, socket }) => ({ currentGame, socket })
 const mapDispatchToProps = {
   callSetOpponentPoints: callSetOpponentPoints
 }

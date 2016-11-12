@@ -66,7 +66,7 @@ class PlayerComponent extends Component {
 
 }
 
-const mapStateToProps = ({ questionList, currentQuestion, currentGame }) => ({ questionList, currentQuestion, currentGame });
+const mapStateToProps = ({ questionList, currentQuestion, currentGame, socket }) => ({ questionList, currentQuestion, currentGame, socket });
 const mapDispatchToProps = (dispatch) => ({
   setNextQuestion: setNextQuestion(dispatch),
   callAddToMyPoints: callAddToMyPoints(dispatch)

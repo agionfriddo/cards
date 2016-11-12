@@ -5,7 +5,6 @@ const models = require('APP/db/models');
 const Question = models.Question;
 
 router.get('/', (req, res, next) => {
-  console.log('LOL')
   Question.findAll({})
   .then(questions => {
     res.json(questions);
@@ -13,8 +12,8 @@ router.get('/', (req, res, next) => {
   .catch(next);
 });
 
-router.get('/:category', (req, res, next) => {
-  Question.findAll({ where: { category: req.params.category } })
+router.get('/:groupId', (req, res, next) => {
+  Question.findAll({ where: { group_id: req.params.groupId } })
   .then(questions => {
     res.json(questions);
   })

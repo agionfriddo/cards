@@ -20,18 +20,18 @@ const seedGroups = () => db.Promise.map([
 const seedQuestions = () => db.Promise.map([
   { content: "Synonym of generous", answer: "Altruistic", points: 1, group_id: 1 },
   { content: "Synonym of sharp", answer: "Angular", points: 1, group_id: 1 },
-  { content: "Antonym of admiration", answer: "Disdain", points: 1, group_id: 1 }
-  // { content: "Who's the antagonist of Othello?", answer: "Iago", points: 1, group_id: 2},
-  // { content: "What is the name of the island the play takes place on?", answer: "Cyprus", points: 1, group_id: 2},
-  // { content: "What is the name of Othello's wife?", answer: "Desdemona", points: 1, group_id: 2 },
-  // { content: "The front end framework that uses components and state", answer: "React", points: 1, group_id: 3 },
-  // { content: "The back end framework for instantiating models", answer: "Sequelize", points: 1, group_id: 3 },
-  // { content: "This library has one central source of truth", answer: "Redux", points: 1, group_id: 3 },
-  // { content: "45 + 57", answer: "102", points: 1, group_id: 4 },
-  // { content: "123 - 35", answer: "88", points: 1, group_id: 4 },
-  // { content: "457 + 134", answer: "591", points: 1, group_id: 4 },
-  // { content: "42 * 3", answer: "126", points: 1, group_id: 4 },
-  // { content: "759 - 125", answer: "634", points: 1, group_id: 4 }
+  { content: "Antonym of admiration", answer: "Disdain", points: 1, group_id: 1 },
+  { content: "Who's the antagonist of Othello?", answer: "Iago", points: 1, group_id: 2},
+  { content: "What is the name of the island the play takes place on?", answer: "Cyprus", points: 1, group_id: 2},
+  { content: "What is the name of Othello's wife?", answer: "Desdemona", points: 1, group_id: 2 },
+  { content: "The front end framework that uses components and state", answer: "React", points: 1, group_id: 3 },
+  { content: "The back end framework for instantiating models", answer: "Sequelize", points: 1, group_id: 3 },
+  { content: "This library has one central source of truth", answer: "Redux", points: 1, group_id: 3 },
+  { content: "45 + 57", answer: "102", points: 1, group_id: 4 },
+  { content: "123 - 35", answer: "88", points: 1, group_id: 4 },
+  { content: "457 + 134", answer: "591", points: 1, group_id: 4 },
+  { content: "42 * 3", answer: "126", points: 1, group_id: 4 },
+  { content: "759 - 125", answer: "634", points: 1, group_id: 4 }
 ], question => db.model('questions').create(question))
 
 const seedGames = () => db.Promise.map([

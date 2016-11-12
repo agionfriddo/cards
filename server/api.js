@@ -6,7 +6,7 @@ const api = module.exports = require('express').Router()
 api
   .get('/heartbeat', (req, res) => res.send({ ok: true }))
   .use('/questions', require('./questions'))
-  // .use('/sets', require('./sets'))
+  .use('/groups', require('./groups'))
   // .use('/games', require('./games'))
   // .use('/users', require('./users'))
 

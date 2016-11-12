@@ -1,11 +1,11 @@
-'use strict'
+'use strict';
 
-const express = require('express')
-const bodyParser = require('body-parser')
-const {resolve} = require('path')
-const passport = require('passport')
-const pkg = require('APP')
-const db = require('APP/db')
+const express = require('express');
+const bodyParser = require('body-parser');
+const {resolve} = require('path');
+const passport = require('passport');
+const pkg = require('APP');
+const db = require('APP/db');
 
 const app = express()
 

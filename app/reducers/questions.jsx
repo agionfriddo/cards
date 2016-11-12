@@ -14,6 +14,11 @@ export const fetchAllQuestions = dispatch => {
     .then(res => dispatch(setQuestions(res.data)));
 };
 
+export const fetchQuestionsByGroup = ({ groupId }) => dispatch => {
+  axios.get(`/api/questions/${groupId}`)
+  .then(res => dispatch(setQuestions(res.data)));
+};
+
 // ------------- REDUCER
 
 const initialState = [];
