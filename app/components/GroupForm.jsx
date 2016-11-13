@@ -8,7 +8,7 @@ class GroupFormComponent extends Component {
     this.state = {
       name: '',
       category: '',
-      user_id: null
+      user_id: 2
     };
     this.updateName = this.updateName.bind(this);
     this.updateCategory = this.updateCategory.bind(this);

@@ -29,17 +29,23 @@ io.on('connection', (socket) => {
 
   socket.on('correct', ({ opponentPoints, groupId }) => {
     socket.broadcast.to(groupId).emit('plusOpponent', { opponentPoints });
-    io.in(groupId).emit('nextQuestion');
+    socket.broadcast.to(groupId).emit('nextQuestion');
   });
 
-  socket.on('setUpRoom', ({ groupId }) => (
+  socket.on('setUpRoom', ({ groupId }) => {
+    console.log("SOMEONE JOINED ROOM " + groupId)
     socket.join(groupId)
-  ));
+  });
+
+  socket.on('leaveRoom', ({ groupId }) => {
+    console.log("SOMEONE LEFT ROOM " + groupId);
+    socket.disconnect();
+    socket.leave(groupId);
+  })
 
   socket.on('disconnect', () => {
     console.log('user disconnected');
     socket.broadcast.emit('user disconnected');
-
   });
 });
 

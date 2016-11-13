@@ -15,14 +15,15 @@ import { createSocket } from './reducers/socket';
 import { callReset } from './reducers/currentQuestion';
 import { callResetPoints } from './reducers/currentGame'
 
-const socket = io.connect();
 
 const onGameEnter = (data) => {
+  const socket = io.connect();
   console.log(data)
+  store.dispatch(fetchGroupById({ groupId: data.params.groupId }));
+  store.dispatch(fetchQuestionsByGroup({ groupId: data.params.groupId }));
+  socket.emit('setUpRoom', { groupId: data.params.groupId });
   store.dispatch(callReset);
   store.dispatch(callResetPoints)
-  store.dispatch(fetchQuestionsByGroup({ groupId: data.params.groupId }));
-  store.dispatch(fetchGroupById({ groupId: data.params.groupId }));
   store.dispatch(createSocket(socket));
 };
 const onTopicsEnter = () => {

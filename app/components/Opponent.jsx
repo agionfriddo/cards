@@ -1,40 +1,47 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { callSetOpponentPoints } from '../reducers/currentGame';
+import { callSetOpponentPoints, callSetOpponentText } from '../reducers/currentGame';
 
 class OpponentComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      typing: false,
-      opponentText: '',
-      opponentPoints: 0
+      typing: false
     };
     this.props.socket.on('opponentTyping', ({ opponentText }) => {
-      this.setState({ opponentText });
+      this.props.callSetOpponentText({ opponentText });
     });
     this.props.socket.on('plusOpponent', ({ opponentPoints }) => {
-      this.setState({ opponentPoints });
-      this.props.callSetOpponentPoints(opponentPoints)
+      this.props.callSetOpponentPoints(opponentPoints);
     });
   }
 
   render() {
     return (
-      <div id="opponent">
-        <h1>Opponent</h1>
-        <p id="opponent-points">Opponent Points: { this.state.opponentPoints && this.state.opponentPoints }</p>
-        <h4>Oppponent's Answer: {this.state.opponentText}</h4>
+      <div id="opponent" className="row">
+          <div className="col-md-6">
+            <h1>Opponent</h1>
+            <div id="opponent-answer">
+              <h3>{this.props.currentGame.opponentText}</h3>
+            </div>
+          </div>
+          <div className="col-md-6">
+            <div id="opponent-points-container">
+              <h3>Points</h3>
+              <div id="opponent-points">{this.props.currentGame.opponentPoints}</div>
+            </div>
+        </div>
       </div>
     );
   }
 
 }
 
-const mapStateToProps = ({ currentGame, socket }) => ({ currentGame, socket })
-const mapDispatchToProps = {
-  callSetOpponentPoints: callSetOpponentPoints
-}
+const mapStateToProps = ({ currentGame, socket }) => ({ currentGame, socket });
+const mapDispatchToProps =  {
+  callSetOpponentPoints: callSetOpponentPoints,
+  callSetOpponentText: callSetOpponentText
+};
 
 const Opponent = connect(mapStateToProps, mapDispatchToProps)(OpponentComponent);
 

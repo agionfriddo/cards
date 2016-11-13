@@ -2,17 +2,59 @@
   border-bottom: 5px solid;
   border-color: black;
   text-align: center;
+  padding-bottom: 5vh;
 }
 
 #player {
-  border-right: 5px solid;
+  border-right: 1px solid;
+  border-left: 1px solid;
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+  margin-top: 5vh;
+  padding: 3vh 3vw 3vh 3vw;
   border-color: black;
+  height: 60%;
+}
+
+#opponent {
+  border-right: 1px solid;
+  border-left: 1px solid;
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+  margin-top: 5vh;
+  padding: 3vh 3vw 3vh 3vw;
+  border-color: black;
+  height: 60%;
+}
+
+#opponent-answer {
+  height: 71px;
+  width: 300px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 #my-points {
-  font-size: 30px;
+  font-size: 100px;
 }
 
 #opponent-points {
-  font-size: 30px;
+  font-size: 100px;
+}
+
+#points-container {
+  text-align: center;
+}
+
+#opponent-points-container {
+  text-align: center;
+}
+
+#question-container {
+  width: 40%;
+  margin: 0 auto;
+  border-right: 1px solid;
+  border-left: 1px solid;
+  border-top: 1px solid;
+  border-bottom: 1px solid;
 }

@@ -13,29 +13,34 @@ class PlayerComponent extends Component {
       typing: false,
     };
     this.setInput = this.setInput.bind(this);
+    this.submitAnswer = this.submitAnswer.bind(this);
     this.props.socket.on('nextQuestion', () => {
-      this.props.setNextQuestion();
-    });
+      document.getElementById('myInput').value = '';
+    })
   }
 
-  componentDidUpdate() {
-    this.props.socket.emit('setUpRoom', { groupId: this.props.group[0].id });
+  componentWillUnmount() {
+    this.props.socket.emit('leaveRoom', { groupId: this.props.group[0].id });
+  }
+
+  setInput(e) {
+    this.setState({ input: e.target.value });
     this.props.socket.emit('input', {
       opponentText: this.state.input,
       groupId: this.props.group[0].id
     });
   }
-
-  setInput(e) {
-    this.setState({ input: e.target.value });
+  submitAnswer(e) {
+    e.preventDefault();
+    document.getElementById('myInput').value = '';
     const answer = this.props.questionList[this.props.currentQuestion].answer;
     if (this.state.input === answer) {
-      e.target.value = '';
       this.props.callAddToMyPoints();
       this.props.socket.emit('correct', {
-        opponentPoints: this.props.currentGame.myPoints + 1,
+        opponentPoints: this.props.currentGame.myPoints,
         groupId: this.props.group[0].id
       });
+      this.props.setNextQuestion();
     }
   }
 
@@ -44,7 +49,7 @@ class PlayerComponent extends Component {
       if (this.props.currentGame.myPoints > this.props.currentGame.opponentPoints) {
         return <h1>YOU WIN! :D</h1>;
       }
-      else if(this.props.currentGame.myPoints < this.props.currentGame.opponentPoints) {
+      else if (this.props.currentGame.myPoints < this.props.currentGame.opponentPoints) {
         return (
           <h1>YOU LOSE! D:</h1>
         );
@@ -58,24 +63,27 @@ class PlayerComponent extends Component {
 
   render() {
     return (
-      <div id="player">
-        <h1>Me</h1>
-        <div id="my-points">My Points: {this.props.currentGame.myPoints}</div>
-          <div className="mdl-textfield mdl-js-textfield">
-            <form action="#">
+      <div id="player" className="row">
+        <div className="col-md-6">
+          <div id="game-result">
+            {this.showWinOrLose()}
+          </div>
+          <h1>Me</h1>
+            <form action="#" onSubmit={this.submitAnswer}>
               <input
                 id="myInput"
-                className="mdl-textfield__input"
+                className="form-control"
                 type="text"
                 onChange={this.setInput}
                 placeholder="Answer"
                 autoFocus='true'
               />
-              <label htmlFor="myInput" className="mdl-textfield__label"></label>
+            <label htmlFor="myInput" className="mdl-textfield__label" />
             </form>
           </div>
-          <div>
-            {this.showWinOrLose()}
+          <div id="points-container" className="col-md-6">
+            <h3>Points</h3>
+            <div id="my-points">{this.props.currentGame.myPoints}</div>
           </div>
         </div>
     );
@@ -89,6 +97,7 @@ const mapStateToProps = ({
 const mapDispatchToProps = (dispatch) => ({
   setNextQuestion: setNextQuestion(dispatch),
   callAddToMyPoints: callAddToMyPoints(dispatch)
+
 });
 const Player = connect(mapStateToProps, mapDispatchToProps)(PlayerComponent);
 

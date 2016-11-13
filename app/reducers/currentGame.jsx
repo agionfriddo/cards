@@ -2,13 +2,15 @@ const START_GAME = 'START_GAME';
 const SAVE_GAME = 'SAVE_GAME';
 const ADD_TO_MY_POINTS = 'ADD_TO_MY_POINTS';
 const SET_OPPONENT_POINTS = 'SET_OPPONENT_POINTS';
-const RESET_POINTS = 'RESET_POINTS'
+const RESET_POINTS = 'RESET_POINTS';
+const SET_OPPONENT_TEXT = 'SET_OPPONENT_TEXT';
 
 export const startGame = () => ({ type: START_GAME });
 export const saveGame = (game) => ({ type: SAVE_GAME, game });
 export const addToMyPoints = () => ({ type: ADD_TO_MY_POINTS });
-export const setOpponentPoints = (points) => ({ type: SET_OPPONENT_POINTS });
-export const resetPoints = () => ({ type: RESET_POINTS })
+export const setOpponentPoints = (points) => ({ type: SET_OPPONENT_POINTS, points });
+export const setOpponentText = (opponentText) => ({ type: SET_OPPONENT_TEXT, opponentText });
+export const resetPoints = () => ({ type: RESET_POINTS });
 
 export const callStartGame = dispatch => {
   return () => dispatch(startGame());
@@ -26,14 +28,19 @@ export const callSetOpponentPoints = points => dispatch => {
   dispatch(setOpponentPoints(points));
 };
 
+export const callSetOpponentText = ({ opponentText }) => dispatch => {
+  dispatch(setOpponentText(opponentText));
+};
+
 export const callResetPoints = dispatch => {
-  console.log("YO WADDUP")
   dispatch(resetPoints());
 };
+
 
 const initialState = {
   myPoints: 0,
   opponentPoints: 0,
+  opponentText: ''
 };
 
 const reducer = (state = initialState, action) => {
@@ -41,11 +48,13 @@ const reducer = (state = initialState, action) => {
     case START_GAME: return state;
     case SAVE_GAME: return state;
     case ADD_TO_MY_POINTS:
-      return { myPoints: state.myPoints + 1, opponentPoints: state.opponentPoints };
+      return Object.assign({}, state, { myPoints: state.myPoints + 1 });
     case SET_OPPONENT_POINTS:
-      return { myPoints: state.myPoints, opponentPoints: state.opponentPoints + 1 };
+      return Object.assign({}, state, { opponentPoints: action.points + 1 });
     case RESET_POINTS:
       return initialState;
+    case SET_OPPONENT_TEXT:
+      return Object.assign({}, state, { opponentText: action.opponentText });
     default: return state;
   }
 };
