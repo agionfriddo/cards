@@ -6,7 +6,7 @@ const Navbar = (props) => (
     <header className="mdl-layout__header">
       <div className="mdl-layout__header-row">
         {/* Title */}
-        <span className="mdl-layout-title">Multiflash</span>
+        <span className="mdl-layout-title">Cards</span>
         {/* Add spacer, to align navigation to the right */}
         <div className="mdl-layout-spacer"></div>
         {/* Navigation. We hide it in small screens. */}
@@ -17,7 +17,7 @@ const Navbar = (props) => (
       </div>
     </header>
     <div className="mdl-layout__drawer">
-      <span className="mdl-layout-title">Multiflash</span>
+      <span className="mdl-layout-title">Cards</span>
       <nav className="mdl-navigation">
         <Link to='/home' className="mdl-navigation__link" href="">Topics</Link>
         <Link to='/form' className="mdl-navigation__link" href="">Manage Question Groups</Link>

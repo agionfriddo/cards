@@ -57,7 +57,7 @@ class PlayerComponent extends Component {
         }
       }
     }
-    if(prevState.input === this.state.input) return null
+    if (prevState.input === this.state.input) return null
     else {
       this.props.socket.emit('input', {
         opponentText: this.state.input,
@@ -70,11 +70,9 @@ class PlayerComponent extends Component {
     return (
       <div id="player" className="row">
         <div className="col-xs-6">
-          <h3>{this.props.currentGame.gameStatus}</h3>
+          <h1>{this.props.currentGame.gameStatus}</h1>
           <h1>Me</h1>
-          <div id="game-result">
-            <h3>{this.state.status}</h3>
-          </div>
+
             <form action="#" onSubmit={this.submitAnswer}>
               <input
                 id="myInput"

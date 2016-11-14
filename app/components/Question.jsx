@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
-import { setNextQuestion } from '../reducers/currentQuestion'
+import { Link } from 'react-router';
+import { setNextQuestion } from '../reducers/currentQuestion';
 
 class QuestionComponent extends Component {
   constructor(props) {
@@ -12,12 +12,12 @@ class QuestionComponent extends Component {
   }
 
   showQuestion() {
-    if(this.props.currentQuestion === this.props.questionList.length) {
+    if (this.props.currentQuestion === this.props.questionList.length) {
       return (
         <div id="question-container">
           <h1>GAME OVER!</h1>
         </div>
-      )
+      );
     }
     if (this.props.questionList.length) {
       return (
@@ -35,6 +35,7 @@ class QuestionComponent extends Component {
     return (
       <div id="question">
       <h1>Questions</h1>
+      <Link to="/home"><p>Return To Topics</p></Link>
         {this.showQuestion()}
       </div>
     );

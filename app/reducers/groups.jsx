@@ -12,8 +12,8 @@ export const addToGroup = group => ({ type: ADD_TO_GROUP, group });
 
 // ------------- ASYNC ACTION CREATORS
 export const fetchAllGroups = dispatch => {
-    axios.get('/api/groups')
-    .then(res => dispatch(setGroups(res.data)));
+  axios.get('/api/groups')
+  .then(res => dispatch(setGroups(res.data)));
 };
 
 export const fetchGroupById = ({ groupId }) => dispatch => {
@@ -21,9 +21,8 @@ export const fetchGroupById = ({ groupId }) => dispatch => {
   .then(group => dispatch(setGroups([group.data])));
 };
 
-export const createGroup = (group) => dispatch => {
-  console.log(group)
-  axios.post('/api/groups', { group })
+export const createGroup = ({ name, category, user_id }) => dispatch => {
+  axios.post('/api/groups', { name, category, user_id })
   .then(group => dispatch(addToGroup(group.data)));
 };
 

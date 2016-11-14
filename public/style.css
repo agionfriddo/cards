@@ -78,3 +78,24 @@
   height: 15vh;
   width: 50vw;
 }
+
+#topic-picker {
+  width: 70%;
+  padding: 10px;
+  margin-top: 1%;
+}
+
+#topic-picker h1 {
+  text-align: left;
+}
+
+
+#topic-picker select {
+  margin-right: 5px;
+  width: 30vw;
+  }
+
+#title {
+  width: 70%;
+  padding: 10px;
+}
