@@ -34,6 +34,8 @@ class QuestionFormComponent extends Component {
   sendQuestion(e) {
     e.preventDefault();
     this.props.createQuestion(this.state);
+    document.getElementById('answer').value = '';
+    document.getElementById('content').value = '';
   }
 
   render() {

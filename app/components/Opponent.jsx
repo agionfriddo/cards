@@ -22,7 +22,9 @@ class OpponentComponent extends Component {
           <div className="col-md-6">
             <h1>Opponent</h1>
             <div id="opponent-answer">
-              <h3>{this.props.currentGame.opponentText}</h3>
+              {
+                <h3>{this.props.currentGame.opponentText}</h3>
+              }
             </div>
           </div>
           <div className="col-md-6">

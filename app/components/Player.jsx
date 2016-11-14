@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setNextQuestion } from '../reducers/currentQuestion';
-import { callAddToMyPoints, callResetPoints } from '../reducers/currentGame';
-import { callClearQuestions } from '../reducers/questions';
+import { callAddToMyPoints } from '../reducers/currentGame';
 
 
 class PlayerComponent extends Component {
@@ -16,7 +15,14 @@ class PlayerComponent extends Component {
     this.submitAnswer = this.submitAnswer.bind(this);
     this.props.socket.on('nextQuestion', () => {
       document.getElementById('myInput').value = '';
-    })
+    });
+  }
+
+  componentWillUpdate() {
+    this.props.socket.emit('input', {
+      opponentText: this.state.input,
+      groupId: this.props.group[0].id
+    });
   }
 
   componentWillUnmount() {
@@ -24,17 +30,16 @@ class PlayerComponent extends Component {
   }
 
   setInput(e) {
+    e.preventDefault();
     this.setState({ input: e.target.value });
-    this.props.socket.emit('input', {
-      opponentText: this.state.input,
-      groupId: this.props.group[0].id
-    });
+
   }
   submitAnswer(e) {
     e.preventDefault();
     document.getElementById('myInput').value = '';
-    const answer = this.props.questionList[this.props.currentQuestion].answer;
-    if (this.state.input === answer) {
+    const answer = this.props.questionList[this.props.currentQuestion].answer.toUpperCase();
+    const input = this.state.input.toUpperCase();
+    if (input === answer) {
       this.props.callAddToMyPoints();
       this.props.socket.emit('correct', {
         opponentPoints: this.props.currentGame.myPoints,
@@ -48,15 +53,14 @@ class PlayerComponent extends Component {
     if (this.props.currentQuestion === this.props.questionList.length) {
       if (this.props.currentGame.myPoints > this.props.currentGame.opponentPoints) {
         return <h1>YOU WIN! :D</h1>;
-      }
-      else if (this.props.currentGame.myPoints < this.props.currentGame.opponentPoints) {
+      } else if (this.props.currentGame.myPoints < this.props.currentGame.opponentPoints) {
         return (
           <h1>YOU LOSE! D:</h1>
         );
       } else {
         return (
           <h1>Tie Game. :|</h1>
-        )
+        );
       }
     }
   }
