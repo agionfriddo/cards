@@ -13,7 +13,7 @@
   margin-top: 5vh;
   padding: 3vh 3vw 3vh 3vw;
   border-color: black;
-  height: 60%;
+  height: 230px;
 }
 
 #opponent {
@@ -24,7 +24,7 @@
   margin-top: 5vh;
   padding: 3vh 3vw 3vh 3vw;
   border-color: black;
-  height: 60%;
+  height: 230px;
 }
 
 #opponent-answer {
@@ -35,26 +35,46 @@
 }
 
 #my-points {
-  font-size: 100px;
+  font-size: 80px;
 }
 
 #opponent-points {
-  font-size: 100px;
+  font-size: 80px;
 }
 
 #points-container {
   text-align: center;
+  border-right: 1px solid;
+  border-left: 1px solid;
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+  border-radius: 10%;
 }
 
 #opponent-points-container {
   text-align: center;
+  border-right: 1px solid;
+  border-left: 1px solid;
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+  border-radius: 10%;
 }
 
 #question-container {
-  width: 40%;
   margin: 0 auto;
   border-right: 1px solid;
   border-left: 1px solid;
   border-top: 1px solid;
   border-bottom: 1px solid;
+  height: 25vh;
+  width: 50vw;
+  padding-bottom: 5px;
+}
+
+#current-question {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 15vh;
+  width: 50vw;
 }

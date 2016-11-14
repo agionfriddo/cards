@@ -6,7 +6,8 @@ class OpponentComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      typing: false
+      typing: false,
+      correct: false
     };
     this.props.socket.on('opponentTyping', ({ opponentText }) => {
       this.props.callSetOpponentText({ opponentText });
@@ -19,7 +20,7 @@ class OpponentComponent extends Component {
   render() {
     return (
       <div id="opponent" className="row">
-          <div className="col-md-6">
+          <div className="col-xs-6">
             <h1>Opponent</h1>
             <div id="opponent-answer">
               {
@@ -27,7 +28,7 @@ class OpponentComponent extends Component {
               }
             </div>
           </div>
-          <div className="col-md-6">
+          <div className="col-xs-6">
             <div id="opponent-points-container">
               <h3>Points</h3>
               <div id="opponent-points">{this.props.currentGame.opponentPoints}</div>

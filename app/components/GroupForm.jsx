@@ -8,21 +8,35 @@ class GroupFormComponent extends Component {
     this.state = {
       name: '',
       category: '',
-      user_id: 2
+      user_id: 2,
+      groupAdded: false
     };
     this.updateName = this.updateName.bind(this);
     this.updateCategory = this.updateCategory.bind(this);
+    this.sendGroup = this.sendGroup.bind(this);
   }
   updateName(e) {
+    this.setState({ groupAdded: false })
     this.setState({ name: e.target.value });
   }
   updateCategory(e) {
+    this.setState({ groupAdded: false })
     this.setState({ category: e.target.value });
+  }
+  sendGroup(e) {
+    this.setState({ groupAdded: true })
+    this.props.createGroup(this.state)
+  }
+  showCreated() {
+    if (this.state.groupAdded) {
+      return <h4>Group added!</h4>;
+    }
   }
 
   render() {
     return (
       <div className="col-md-4">
+        {this.showCreated()}
         <h3>Create a Question Group</h3>
         <form action="#">
           <div className="mdl-textfield mdl-js-textfield">
@@ -52,7 +66,7 @@ class GroupFormComponent extends Component {
         </form>
         <button
           className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
-          onClick={() => this.props.createGroup(this.state)}
+          onClick={this.sendGroup}
         >
           Create Question Group
         </button>

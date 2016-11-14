@@ -13,18 +13,19 @@ import { fetchQuestionsByGroup, callClearQuestions } from './reducers/questions'
 import { fetchAllGroups, fetchGroupById } from './reducers/groups';
 import { createSocket } from './reducers/socket';
 import { callReset } from './reducers/currentQuestion';
-import { callResetPoints } from './reducers/currentGame'
+import { callResetPoints, callSetGameStatus } from './reducers/currentGame'
 
 
 const onGameEnter = (data) => {
   const socket = io.connect();
-  console.log(data)
+  console.log(data);
   store.dispatch(fetchGroupById({ groupId: data.params.groupId }));
   store.dispatch(fetchQuestionsByGroup({ groupId: data.params.groupId }));
   socket.emit('setUpRoom', { groupId: data.params.groupId });
   store.dispatch(callReset);
-  store.dispatch(callResetPoints)
+  store.dispatch(callResetPoints);
   store.dispatch(createSocket(socket));
+  store.dispatch(callSetGameStatus);
 };
 const onTopicsEnter = () => {
   store.dispatch(callClearQuestions);

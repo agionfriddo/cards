@@ -37,7 +37,7 @@ const seedQuestions = () => db.Promise.map([
   { content: "2 x 8", answer: "16", points: 1, group_id: 5 },
   { content: "4 x 9", answer: "36", points: 1, group_id: 5 },
   { content: "7 x 6", answer: "42", points: 1, group_id: 5 },
-  { content: "9 x 6", answer: "63", points: 1, group_id: 5 },
+  { content: "9 x 6", answer: "54", points: 1, group_id: 5 },
   { content: "4 x 3", answer: "12", points: 1, group_id: 5 },
   { content: "5 x 10", answer: "50", points: 1, group_id: 5 },
   { content: "11 x 11", answer: "121", points: 1, group_id: 5 },

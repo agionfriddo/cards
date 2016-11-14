@@ -9,13 +9,15 @@ class QuestionFormComponent extends Component {
       content: '',
       answer: '',
       points: 1,
-      group_id: null
+      group_id: null,
+      questionAdded: false
     };
     this.onSelectGroup = this.onSelectGroup.bind(this);
     this.loadQuestions = this.loadQuestions.bind(this);
     this.updateContent = this.updateContent.bind(this);
     this.updateAnswer = this.updateAnswer.bind(this);
     this.sendQuestion = this.sendQuestion.bind(this);
+    this.showCreated = this.showCreated.bind(this);
   }
   onSelectGroup(e) {
     this.setState({ group_id: e.target.value });
@@ -24,23 +26,33 @@ class QuestionFormComponent extends Component {
     this.props.fetchQuestionsByGroup({ groupId: this.state.group_id });
   }
   updateContent(e) {
+    this.setState({ questionAdded: false })
+
     e.preventDefault();
     this.setState({ content: e.target.value });
   }
   updateAnswer(e) {
+    this.setState({ questionAdded: false })
     e.preventDefault();
     this.setState({ answer: e.target.value });
   }
   sendQuestion(e) {
     e.preventDefault();
+    this.setState({ questionAdded: true })
     this.props.createQuestion(this.state);
     document.getElementById('answer').value = '';
     document.getElementById('content').value = '';
+  }
+  showCreated() {
+    if (this.state.questionAdded) {
+      return <h4>Question added!</h4>;
+    }
   }
 
   render() {
     return (
       <div className="col-md-8">
+        {this.showCreated()}
         <h3>Add a Question Below</h3>
           <div className="form-group">
             <select

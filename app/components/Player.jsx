@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setNextQuestion } from '../reducers/currentQuestion';
-import { callAddToMyPoints } from '../reducers/currentGame';
+import { callAddToMyPoints, callSetGameStatus } from '../reducers/currentGame';
 
 
 class PlayerComponent extends Component {
@@ -9,19 +9,12 @@ class PlayerComponent extends Component {
     super(props);
     this.state = {
       input: '',
-      typing: false,
+      typing: false
     };
     this.setInput = this.setInput.bind(this);
     this.submitAnswer = this.submitAnswer.bind(this);
     this.props.socket.on('nextQuestion', () => {
       document.getElementById('myInput').value = '';
-    });
-  }
-
-  componentWillUpdate() {
-    this.props.socket.emit('input', {
-      opponentText: this.state.input,
-      groupId: this.props.group[0].id
     });
   }
 
@@ -45,34 +38,43 @@ class PlayerComponent extends Component {
         opponentPoints: this.props.currentGame.myPoints,
         groupId: this.props.group[0].id
       });
+      this.props.callSetGameStatus('Correct!')
       this.props.setNextQuestion();
+    } else {
+      this.props.callSetGameStatus('Incorrect!')
     }
   }
 
-  showWinOrLose() {
-    if (this.props.currentQuestion === this.props.questionList.length) {
-      if (this.props.currentGame.myPoints > this.props.currentGame.opponentPoints) {
-        return <h1>YOU WIN! :D</h1>;
-      } else if (this.props.currentGame.myPoints < this.props.currentGame.opponentPoints) {
-        return (
-          <h1>YOU LOSE! D:</h1>
-        );
-      } else {
-        return (
-          <h1>Tie Game. :|</h1>
-        );
+  componentDidUpdate(prevProps, prevState) {
+    if(prevProps.currentQuestion !== this.props.currentQuestion) {
+      if (this.props.currentQuestion === this.props.questionList.length) {
+        if (this.props.currentGame.myPoints > this.props.currentGame.opponentPoints) {
+          this.props.callSetGameStatus('You win!')
+        } else if (this.props.currentGame.myPoints < this.props.currentGame.opponentPoints) {
+            this.props.callSetGameStatus('You lose!')
+        } else {
+            this.props.callSetGameStatus('Tie.')
+        }
       }
+    }
+    if(prevState.input === this.state.input) return null
+    else {
+      this.props.socket.emit('input', {
+        opponentText: this.state.input,
+        groupId: this.props.group[0].id
+      });
     }
   }
 
   render() {
     return (
       <div id="player" className="row">
-        <div className="col-md-6">
-          <div id="game-result">
-            {this.showWinOrLose()}
-          </div>
+        <div className="col-xs-6">
+          <h3>{this.props.currentGame.gameStatus}</h3>
           <h1>Me</h1>
+          <div id="game-result">
+            <h3>{this.state.status}</h3>
+          </div>
             <form action="#" onSubmit={this.submitAnswer}>
               <input
                 id="myInput"
@@ -85,7 +87,7 @@ class PlayerComponent extends Component {
             <label htmlFor="myInput" className="mdl-textfield__label" />
             </form>
           </div>
-          <div id="points-container" className="col-md-6">
+          <div id="points-container" className="col-xs-6">
             <h3>Points</h3>
             <div id="my-points">{this.props.currentGame.myPoints}</div>
           </div>
@@ -100,8 +102,8 @@ const mapStateToProps = ({
   });
 const mapDispatchToProps = (dispatch) => ({
   setNextQuestion: setNextQuestion(dispatch),
-  callAddToMyPoints: callAddToMyPoints(dispatch)
-
+  callAddToMyPoints: callAddToMyPoints(dispatch),
+  callSetGameStatus: callSetGameStatus(dispatch)
 });
 const Player = connect(mapStateToProps, mapDispatchToProps)(PlayerComponent);
 
