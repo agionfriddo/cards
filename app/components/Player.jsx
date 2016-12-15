@@ -69,7 +69,7 @@ class PlayerComponent extends Component {
   render() {
     return (
       <div id="player" className="row">
-        <div className="col-xs-6">
+        <div className="col s6">
           <h1>{this.props.currentGame.gameStatus}</h1>
           <h1>Me</h1>
 
@@ -85,7 +85,7 @@ class PlayerComponent extends Component {
             <label htmlFor="myInput" className="mdl-textfield__label" />
             </form>
           </div>
-          <div id="points-container" className="col-xs-6">
+          <div id="points-container" className="col s6">
             <h3>Points</h3>
             <div id="my-points">{this.props.currentGame.myPoints}</div>
           </div>

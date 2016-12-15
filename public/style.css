@@ -1,3 +1,7 @@
+body {
+  background-color: #457B9D;
+}
+
 #question {
   border-bottom: 5px solid;
   border-color: black;

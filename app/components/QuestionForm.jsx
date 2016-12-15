@@ -51,7 +51,7 @@ class QuestionFormComponent extends Component {
 
   render() {
     return (
-      <div className="col-md-8">
+      <div className="col s8">
         {this.showCreated()}
         <h3>Add a Question Below</h3>
           <div className="form-group">
@@ -76,7 +76,7 @@ class QuestionFormComponent extends Component {
             Select Question Group
           </button>
         <div className="row">
-          <div className="col-md-6">
+          <div className="col s6">
             <form action="#">
               <div className="mdl-textfield mdl-js-textfield">
                 <textarea
@@ -108,7 +108,7 @@ class QuestionFormComponent extends Component {
               Create Question
             </button>
           </div>
-          <div className="col-md-6">
+          <div className="col s6">
             {
               this.props.questionList.map(question => {
                 return (

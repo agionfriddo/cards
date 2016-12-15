@@ -9,15 +9,15 @@ const Game = () => (
   <div>
     <div className="container">
       <div className="row">
-        <div className="col-md-12">
+        <div className="col s12">
         <Question />
         </div>
       </div>
       <div className="row">
-      <div className="col-md-6">
+      <div className="col s6">
         <Player />
       </div>
-      <div className="col-md-6">
+      <div className="col s6">
         <Opponent />
       </div>
     </div>

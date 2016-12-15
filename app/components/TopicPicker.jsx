@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import { Card, CardActions, CardTitle, CardText } from 'material-ui/Card'
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
+import FlatButton from 'material-ui/FlatButton';
 
 class TopicPickerComponent extends Component {
   constructor(props) {
@@ -13,7 +17,6 @@ class TopicPickerComponent extends Component {
 
 
   showGroups() {
-    console.log(this.props.group)
     return this.props.group && this.props.group.map(group => {
       return <Link to={`/game/${group.id}`}><button className="btn btn-default" >{group.name}</button></Link>;
     });
@@ -25,36 +28,29 @@ class TopicPickerComponent extends Component {
 
   render() {
     return (
-      <div className="container">
-        <div id="title" className="row">
-          <h1>Cards</h1>
-          <h4>A Competitive Multiplayer Flash Card Game for Teachers and Students</h4>
-          <p>Either choose a topic below or click <Link to="/form">manage question groups</Link> above to create your own group of cards!</p>
-        </div>
-        <div className="row" id="topic-picker">
-          <h3>Choose a topic below!</h3>
-            <form className="form-inline">
-              <select
-                className="form-control" id="sel1"
-                onChange={this.selectGroup}
-              >
-                <option>Topics</option>
+      <Card>
+        <CardTitle title="Cards" subtitle="A Competitive Multiplayer Flash Card Game for Teachers and Students"/>
+        <CardText>Either choose a topic below or click <Link to="/form">manage question groups</Link> above to create your own group of cards!</CardText>
+        <CardText>Choose a topic below!</CardText>
+            <form>
+              <DropDownMenu value={this.state.selectedGroup} onChange={this.selectGroup} >
+                <MenuItem primaryText="Topics" value={0}/>
                 {
                   this.props.group.map(group => (
-                    <option key={group.id} value={group.id}>
-                      {group.name}
-                    </option>
+                    <MenuItem key={group.id}
+                      primaryText={group.name}
+                      value={group.id}
+                      />
                   ))
                 }
-              </select>
+              </DropDownMenu>
               <Link to={`/game/${this.state.selectedGroup}`}>
-                <button id="home-select-button" className="btn btn-default">
+                <button id="home-select-button">
                   Go
                 </button>
               </Link>
             </form>
-          </div>
-        </div>
+        </Card>
     );
   }
 }

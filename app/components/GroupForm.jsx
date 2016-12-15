@@ -35,7 +35,7 @@ class GroupFormComponent extends Component {
 
   render() {
     return (
-      <div className="col-md-4">
+      <div className="col m4">
         {this.showCreated()}
         <h3>Create a Question Group</h3>
         <form action="#">

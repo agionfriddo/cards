@@ -3,9 +3,8 @@ import Navbar from './Navbar';
 
 const App = ({ children }) => (
   <div>
-    <Navbar>
-      {children}
-    </Navbar>
+    <Navbar/>
+    {children}
   </div>
 );
 

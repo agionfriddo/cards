@@ -2,8 +2,7 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const {resolve} = require('path');
-const passport = require('passport');
+const { resolve } = require('path');
 const pkg = require('APP');
 const db = require('APP/db');
 
