@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import { Card, CardTitle, CardText } from 'material-ui/Card';
 import { setNextQuestion } from '../reducers/currentQuestion';
 
 class QuestionComponent extends Component {
@@ -21,12 +22,12 @@ class QuestionComponent extends Component {
     }
     if (this.props.questionList.length) {
       return (
-      <div id="question-container">
-        <h4>Current Question</h4>
-        <div id="current-question">
-          <h1>{this.props.questionList[this.props.currentQuestion].content}</h1>
-        </div>
-      </div>
+        <Card id="question-container" zDepth={5}>
+            <CardTitle className="question-title">Current Question</CardTitle>
+            <div id="current-question">
+              <CardText style={ {'font-size': '3em'} }>{this.props.questionList[this.props.currentQuestion].content}</CardText>
+            </div>
+          </Card>
       );
     } else return null;
   }

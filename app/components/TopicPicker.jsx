@@ -32,28 +32,43 @@ class TopicPickerComponent extends Component {
         <CardTitle title="Cards" subtitle="A Competitive Multiplayer Flash Card Game for Teachers and Students"/>
         <CardText>Either choose a topic below or click <Link to="/form">manage question groups</Link> above to create your own group of cards!</CardText>
         <CardText>Choose a topic below!</CardText>
-            <form>
-              <DropDownMenu value={this.state.selectedGroup} onChange={this.selectGroup} >
-                <MenuItem primaryText="Topics" value={0}/>
-                {
-                  this.props.group.map(group => (
-                    <MenuItem key={group.id}
-                      primaryText={group.name}
-                      value={group.id}
-                      />
-                  ))
-                }
-              </DropDownMenu>
-              <Link to={`/game/${this.state.selectedGroup}`}>
-                <button id="home-select-button">
-                  Go
-                </button>
-              </Link>
-            </form>
-        </Card>
+        <div className="row topic-list">
+        {
+          this.props.group.map((group, i) => (
+              <Card className="col s4 topic" key={i}>
+                <CardTitle>{group.name}</CardTitle>
+                <CardText>Category: {group.category}</CardText>
+                <Link to={`/game/${group.id}`}>
+                  <FlatButton id="home-select-button">
+                    Go
+                  </FlatButton>
+                </Link>
+              </Card>
+          ))
+        }
+      </div>
+
+
+      </Card>
     );
   }
 }
+
+
+// {
+//   this.props.group.map(item => (
+//     <MenuItem
+//       key={item.id}
+//       value={item.id}
+//       primaryText={item.name}
+//       />
+//   ))
+// }
+// <Link to={`/game/${this.state.selectedGroup}`}>
+//   <FlatButton id="home-select-button">
+//     Go
+//   </FlatButton>
+// </Link>
 
 const mapStateToProps = ({ group }) => ({ group });
 

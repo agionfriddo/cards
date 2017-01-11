@@ -66,13 +66,10 @@ body {
 
 #question-container {
   margin: 0 auto;
-  border-right: 1px solid;
-  border-left: 1px solid;
-  border-top: 1px solid;
-  border-bottom: 1px solid;
   height: 25vh;
   width: 50vw;
   padding-bottom: 5px;
+  box-shadow: 10px 5px 5px black;
 }
 
 #current-question {
@@ -102,4 +99,8 @@ body {
 #title {
   width: 70%;
   padding: 10px;
+}
+
+.question-title {
+  font-size: 2em;
 }
