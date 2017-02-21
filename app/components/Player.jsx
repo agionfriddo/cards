@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Card, CardActions, CardTitle, CardText, CardHeader } from 'material-ui/Card';
 import { setNextQuestion } from '../reducers/currentQuestion';
 import { callAddToMyPoints, callSetGameStatus } from '../reducers/currentGame';
 
@@ -39,7 +40,7 @@ class PlayerComponent extends Component {
         groupId: this.props.group[0].id
       });
       this.props.callSetGameStatus('Correct!')
-      this.props.setNextQuestion();
+      window.setTimeout(this.props.setNextQuestion, 3000);
     } else {
       this.props.callSetGameStatus('Incorrect!')
     }
@@ -67,12 +68,14 @@ class PlayerComponent extends Component {
   }
 
   render() {
+    const { status, myPoints } = this.props.currentGame;
+    const { points } = style;
     return (
-      <div id="player" className="row">
-        <div className="col s6">
-          <h1>{this.props.currentGame.gameStatus}</h1>
-          <h1>Me</h1>
-
+      <Card zDepth={5}>
+        <CardHeader title="Me" subtitle={status} avatar="/default-profile-photo.png">
+          <CardTitle style={points}>Points: {myPoints}</CardTitle>
+        </CardHeader>
+        <CardText>
             <form action="#" onSubmit={this.submitAnswer}>
               <input
                 id="myInput"
@@ -84,12 +87,8 @@ class PlayerComponent extends Component {
               />
             <label htmlFor="myInput" className="mdl-textfield__label" />
             </form>
-          </div>
-          <div id="points-container" className="col s6">
-            <h3>Points</h3>
-            <div id="my-points">{this.props.currentGame.myPoints}</div>
-          </div>
-        </div>
+        </CardText>
+        </Card>
     );
   }
 }
@@ -98,11 +97,19 @@ const mapStateToProps = ({
   questionList, currentQuestion, currentGame, socket, group }) => ({
     questionList, currentQuestion, currentGame, socket, group
   });
+
 const mapDispatchToProps = (dispatch) => ({
   setNextQuestion: setNextQuestion(dispatch),
   callAddToMyPoints: callAddToMyPoints(dispatch),
   callSetGameStatus: callSetGameStatus(dispatch)
 });
+
 const Player = connect(mapStateToProps, mapDispatchToProps)(PlayerComponent);
 
 export default Player;
+
+const style = {
+  points: {
+    "fontSize": "40px"
+  }
+}

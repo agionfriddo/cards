@@ -13,6 +13,7 @@ api
 
 // Send along any errors
 api.use((err, req, res, next) => {
+  if(err) console.error("HORRIBLE SERVER ERROR", err);
   res.status(500).send(err)
 })
 

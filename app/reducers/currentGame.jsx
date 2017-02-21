@@ -39,9 +39,7 @@ export const callResetPoints = dispatch => {
 };
 
 export const callSetGameStatus = (dispatch) => {
-  console.log("YOYOUYOYOUYOYOYOYOY")
   return (status) => {
-    console.log("STATUS", status)
     dispatch(setGameStatus(status))
   };
 };
@@ -67,7 +65,7 @@ const reducer = (state = initialState, action) => {
     case SET_OPPONENT_TEXT:
       return Object.assign({}, state, { opponentText: action.opponentText });
     case SET_GAME_STATUS:
-      return Object.assign({}, state, { gameStatus: action.status });
+      return Object.assign({}, state, { status: action.status });
     default: return state;
   }
 };

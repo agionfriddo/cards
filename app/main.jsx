@@ -4,6 +4,7 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import io from 'socket.io-client';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import App from './components/App';
 import Game from './components/Game';
@@ -16,6 +17,7 @@ import { createSocket } from './reducers/socket';
 import { callReset } from './reducers/currentQuestion';
 import { callResetPoints, callSetGameStatus } from './reducers/currentGame'
 
+injectTapEventPlugin();
 
 const onGameEnter = (data) => {
   const socket = io.connect();

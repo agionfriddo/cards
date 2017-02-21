@@ -8,7 +8,7 @@ class QuestionComponent extends Component {
   constructor(props) {
     super(props);
     this.props.socket.on('nextQuestion', () => {
-      this.props.setNextQuestion();
+      window.setTimeout(this.props.setNextQuestion, 3000);
     });
   }
 
@@ -16,18 +16,19 @@ class QuestionComponent extends Component {
     if (this.props.currentQuestion === this.props.questionList.length) {
       return (
         <div id="question-container">
-          <h1>GAME OVER!</h1>
+          <Card zDepth={5}>
+            <CardTitle className="question-title">GAME OVER!</CardTitle>
+            <CardText style={ {'fontSize': '3em'} }>{this.props.currentGame.status}</CardText>
+          </Card>
         </div>
       );
     }
     if (this.props.questionList.length) {
       return (
-        <Card id="question-container" zDepth={5}>
-            <CardTitle className="question-title">Current Question</CardTitle>
-            <div id="current-question">
-              <CardText style={ {'font-size': '3em'} }>{this.props.questionList[this.props.currentQuestion].content}</CardText>
-            </div>
-          </Card>
+        <Card zDepth={5}>
+          <CardTitle className="question-title">Current Question</CardTitle>
+          <CardText style={ {'fontSize': '3em'} }>{this.props.questionList[this.props.currentQuestion].content}</CardText>
+        </Card>
       );
     } else return null;
   }
@@ -44,7 +45,7 @@ class QuestionComponent extends Component {
 
 }
 
-const mapStateToProps = ({ questionList, currentQuestion, socket }) => ({ questionList, currentQuestion, socket });
+const mapStateToProps = ({ questionList, currentQuestion, socket, currentGame }) => ({ questionList, currentQuestion, socket, currentGame });
 const mapDispatchToProps = (dispatch) => ({ setNextQuestion: setNextQuestion(dispatch) });
 const Question = connect(mapStateToProps, mapDispatchToProps)(QuestionComponent);
 
